@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YoutubeClone</title>
+</head>
+<body style="
+  margin:0;
+  padding-top:80px;
+  padding-left:96px;
+  padding-right:24px;
+  background-color: rgb(248, 248, 249);">
+  <!-- video preview -->
+  <style>
+  .division-img1{ 
+   margin-top:10px;
+   width:100%;
+   height:130px;  
+   vertically-align:top; 
+    margin-right:30px;   
+   margin-right:4.6px;
+   position:relative;    
+  }
+  .img1{
+  width:100%;
+  height:130px; 
+  margin-bottom:0px;  
+  margin-right:4.6px;
+  }
+  .video-time{
+   font-family: roboto, arial;
+   font-size:12px;
+   font-weight:500;
+    padding:4px;
+    border-radius:2px;
+   background-color:black;
+   color:white;    
+   position:absolute;
+   bottom:7px;
+   right:5px;
+  }
+  .video-info-grid{
+  display:grid;
+  grid-template-columns:40px 280px;
+  padding-bottom:10px;   
+  margin-top:0px;    
+  }
+  .img2{
+  height:35px;
+  width:36px;
+  border-radius:40px;  
+  margin-top:5px;
+  }
+  .division-title{
+  display:inline-block; 
+  vertical-align:top;
+  padding-left:10px;  
+  width:100%;  
+  margin-right:4.6px;    
+  }
+  .title{
+  width:100%;    
+  vertical-align:top; 
+  margin-top:5px; 
+  font-weight:780;
+  font-size:18px; 
+  margin-right:4.6px; 
+  margin-bottom:0px;    
+  }
+  .Youtuber-name{
+  width:240px;
+  height:10px;  
+  color:rgb( 96, 96, 96);
+  font-size:17px; 
+  margin-top:10px; 
+  margin-bottom:0px; 
+  margin-right:4.6px;    
+  }
+  .Duration{
+  width:240px;
+  height:10px;  
+  color:rgb( 96, 96, 96);
+  font-size:17px; 
+  margin-top:15px;  
+  margin-bottom:20px;
+  margin-right:4.6px;    
+  }
+  .main{
+  display:inline-block; 
+  width:100%;    
+  }
+  .grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;   
+   column-gap:10px; 
+   row-gap:7px;
+  }
+  @media (min-width: 751px) and (max-width:999px){
+    grid-template-columns: 1fr 1fr 1fr;     
+    }
+  @media (max-width: 750px) {
+   .grid{
+     grid-template-columns: 1fr 1fr;
+   }     
+  }
+    
+  @media (min-width: 1000px){
+  .grid{
+  grid-template-columns: 1fr 1fr 1fr 1fr;   
+  }    
+  }
+  </style>
+    <!-- video preview ended -->
+    <!-- heading search-box style started-->
+  <style>
+  .header{
+   height:55px;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    background-color: white;
+    border-bottom-width: 1px;
+    border-bottom-style:solid;
+    border-bottom-color: rgb(228, 228, 228);
+    z-index:200;
+  }
+  .left-section{
+  display:flex;
+  align-items:center;    
+  }
+  .hamburger-menu{
+  height:24px; 
+  margin-left:24px;
+  margin-right:24px;
+  }
+  .youtube-logo{
+  height:20px;   
+  }
+  .middle-section{
+  flex: 1;  
+  margin-left:70px;
+  margin-right:35px;  
+  max-width:600px; 
+  display:flex; 
+  align-items:center;        
+  }
+  .search-bar::placeholder{
+  font-family:Roboto, Arial;
+  font-size:16px;
+  }
+  .search-bar{
+    flex:1;  
+    height:36px;
+    padding-left:10px;
+    font-size:16px; 
+    border-width:1px;
+    border-style:solid;
+    border-color:rgb(192,192,192);
+    border-radius:2px;
+    box-shadow:inset 1px 2px 3px rgba(
+    0, 0, 0, 0.05);
+    width:0;
+  }
+ .search-button{
+   height:40px;
+   width:66px;
+   background-color:rgb(240, 240, 240);
+   border-style:solid;
+   border-color:rgb(192,192,192);
+   margin-left:-1px;
+   margin-right:10px; 
+ }
+  .search-button,
+  .voice-search-button,
+  .upload-icon-container,
+   .youtube-apps-icon-container,
+   .notifications-icon-container {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+   position: relative; 
+  }
+  .search-button .tooltip,
+  .voice-search-button .tooltip,
+  .upload-icon-container .tooltip,
+  .youtube-apps-icon-container .tooltip,
+  .notifications-icon-container .tooltip{
+    font-family: roboto, arial;
+    position:absolute;
+    background-color: gray;
+    color:white;
+    padding-top:4px;
+    padding-bottom:4px;
+    padding-left:8px;
+    padding-right:8px;
+    border-radius: 2px;
+    font-size:12px;
+    bottom:-30px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .search-button:hover .tooltip,
+  .voice-search-button:hover .tooltip,
+  .upload-icon-container:hover .tooltip,
+  .youtube-apps-icon-container:hover .tooltip,
+  .notifications-icon-container:hover .tooltip{
+  opacity: 1;  
+  }
+  .search-icon{
+  height:25px; 
+  cursor:pointer;    
+  }
+  .voice-search-button{
+  height:40px;
+  width:40px; 
+  border-radius:20px; 
+  border: none;
+  background-color:rgb(245, 245, 245);
+    cursor:pointer; 
+  }
+  voice-search-icon{
+    height:24px;
+    cursor:pointer; 
+  }
+  .upload-icon{
+  height:24px; 
+  cursor:pointer;     
+  }
+  .youtube-apps-icon{
+   height:24px; 
+    cursor:pointer; 
+  }
+  .notifications-icon{
+   height:24px; 
+   cursor:pointer;     
+  }
+  .notifications-icon-container{
+    position:relative;
+  }
+  .notifications-count{
+    position:absolute;
+    top:-2px;
+    right:-5px;
+    background-color:rgb(200, 0, 0);
+    color:white;
+    font-family: roboto, arial;
+    font-size:11px;
+    padding-left:5px;
+    padding-right:5px;
+    padding-top:2px;
+    padding-bottom:2px;
+    border-radius:10px;
+  }
+  
+  .current-user-picture{
+  height:32px;  
+  border-radius:16px;
+  }
+  .right-section{
+    width: 260px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    margin-right:20px;
+    flex-shrink:0;
+     }
+  </style>
+  <!-- heading search-box style ENDED-->
+  <!-- sidebar style started -->
+  <style>
+  .sidebar{
+   background-color:white;
+   position:fixed;
+   top:55px;
+   left: 0;
+   bottom: 0;    
+   width:72px; 
+   z-index:400;
+    padding-top: 5px;
+  }
+  .sidebar-link{
+   height:74px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+     }
+  .sidebar-link:hover{
+  background-color: rgb(235, 235, 235);  
+  }
+  .sidebar-link img{
+    height:24px;
+    margin-bottom:4px;
+  }
+  .sidebar-link div{
+    font-family:roboto, arial;
+    font-size: 10px;
+  }
+  </style>
+  <div class="header">
+    <div class="left-section"> 
+      <img  class="hamburger-menu" src="hamburger-menu.svg">
+      <img  class="youtube-logo" src="youtube-logo.svg">
+      </div>
+    <div class="middle-section">
+      <input class="search-bar" type="text" placeholder="Search">  
+      <button class="search-button">
+        <img class="search-icon" src="search.svg">
+        <div class="tooltip">Search</div>
+      </button>
+      <button class="voice-search-button">
+        <img class="voice-search-icon" src="voice-search-icon.svg">
+        <div class="tooltip">Search with your voice</div>
+      </button>      
+    </div>
+    <div class="right-section">
+      <div class="upload-icon-container">
+       <img class="upload-icon" src="upload.svg"> 
+      <div class="tooltip">Create</div>
+      </div> 
+      <div class="youtube-apps-icon-container">
+         <img class="youtube-apps-icon" src="youtube-apps.svg">
+      <div class="tooltip">YouTube Apps</div>
+      </div>
+       <div class="notifications-icon-container">
+      <img class="notifications-icon" src="notifications.svg">
+        <div class="notifications-count">7</div>   
+       <div class="tooltip">Notifications</div>  
+       </div>
+      <img class="current-user-picture" src="SmartSelect_20250810_203632_Google.png">
+    </div>
+ </div>
+  <!-- sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-link">
+      <img src="home.svg">
+      <div>Home</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="explore.svg">
+      <div>Explore</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="subscriptions.svg">
+      <div>Subscriptions</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="originals.svg">
+      <div>Originals</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="youtube-music.svg">
+      <div>Youtube Music</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="library.svg">
+      <div>Library</div>
+    </div>
+  </div>  
+  <!-- 1) -->
+  <div class="grid"> 
+    <div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_163143_Google.jpg">  
+      <div class="video-time">
+        4:31
+      </div> 
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_163751_YouTube.jpg">
+      </div>
+      <div class="division-title">
+      <p class="title">
+    Kantara-Varaha Roopam Video Song| Rishab Shetty| Ajaneesh ...
+      </p>        
+   <p class="Youtuber-name">
+    Hombale Films
+  </p>
+  <p class="Duration">
+    8.5 crore views    &#183; 1 year ago
+  </p>
+      </div>
+      </div> 
+  </div>
+  <!-- 2 -->
+  <div class="main">
+  <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_165401_YouTube.jpg">
+    <div class="video-time">
+        25:24
+      </div>     
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_165510_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      महाराष्ट्रातील सर्वात थरारक मानला जाणारा ट्रेक | Most thrilling ....    
+      </p>        
+   <p class="Youtuber-name">
+    Psycho Prashil
+  </p>
+  <p class="Duration">
+    29 lakh views    &#183; 2 years ago
+  </p>
+      </div>
+      </div>
+  </div> 
+  <!-- 3 -->
+<div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_170215_YouTube.jpg"> 
+    <div class="video-time">
+        12:10
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_170249_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      Bermuda Triangle Mystery Solved
+  </p>        
+   <p class="Youtuber-name">
+    Nitish Rajput
+  </p>
+  <p class="Duration">
+    79 lakh views    &#183; 2 years ago
+  </p>
+      </div>
+      </div> 
+  </div>
+  <!-- 4 -->
+<div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_172138_YouTube.jpg"> 
+     <div class="video-time">
+        6:51
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_172217_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+    Rajyabhishek Sohala: Raigad वर असलेल्या छत्रपती शिवरायांच्या ३२...
+  </p>        
+   <p class="Youtuber-name">
+    BolBhidu
+  </p>
+  <p class="Duration">
+    3.7 lakh views    &#183; 2 years ago
+  </p>
+      </div>
+      </div> 
+  </div>  
+  <!-- 5 -->
+  <div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_183830_YouTube.jpg"> 
+      <div class="video-time">
+        2:27:02
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_183907_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      Physics Wallah - Alakh Pandey | 2025 Latest Web Series in H...
+  </p>        
+   <p class="Youtuber-name">
+    Total Drama
+  </p>
+  <p class="Duration">
+    3.9 lakh views    &#183; 3 months ago
+  </p>
+      </div>
+      </div> 
+  </div>  
+  <!-- 6 -->
+  <div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_184455_YouTube.jpg">
+      <div class="video-time">
+        1:04:05
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_184541_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      FAITH in SHIVA Can Change Anything | Shiv Swarnamala ...
+  </p>        
+   <p class="Youtuber-name">
+    Religious India
+  </p>
+  <p class="Duration">
+    28 lakh views    &#183; 5 months ago
+  </p>
+      </div>
+      </div> 
+  </div>  
+  <!-- 7 -->
+    <div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_184643_YouTube.jpg">
+     <div class="video-time">
+        31:47
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_184722_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      Must try Nashik Street Food | Khau Galli | Panchavati | Dw...
+  </p>        
+   <p class="Youtuber-name">
+    Bhartiya Touring Party
+  </p>
+  <p class="Duration">
+    2 lakh views    &#183; 9 days ago
+  </p>
+      </div>
+      </div> 
+  </div>  
+    <!-- 8 -->
+    <div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_184829_YouTube.jpg">
+     <div class="video-time">
+        15:26
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_184902_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      Motorola edge 60 fusion is here - The most premium ph...
+  </p>        
+   <p class="Youtuber-name">
+    Technology Gyan
+  </p>
+  <p class="Duration">
+    16 lakh views    &#183; 4 months ago
+  </p>
+      </div>
+      </div> 
+  </div>  
+  <!-- 9 -->
+  <div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_185119_YouTube.jpg">
+     <div class="video-time">
+        4:39
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_185155_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      Jeev Rangla - Ajay Atul (Lyrics) | Lyrical Bam Marathi
+  </p>        
+   <p class="Youtuber-name">
+    LYRICAL BAM MARATHI
+  </p>
+  <p class="Duration">
+    3.7 lakh views    &#183; 1 year ago
+  </p>
+      </div>
+      </div> 
+  </div> 
+    <!-- 10 -->
+<div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_184018_YouTube.jpg">
+     <div class="video-time">
+        2:38
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_184056_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      SAAMRAJYA (KINGDOM) Official Hindi Trailer | Vijay Deverakonda
+  </p>        
+   <p class="Youtuber-name">
+    AD-WISE MEDIA ACTION 
+  </p>
+  <p class="Duration">
+    38 lakh views    &#183; 2 weeks ago
+  </p>
+      </div>
+      </div> 
+  </div> 
+    <!-- 11 -->
+<div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_185345_YouTube.jpg">
+     <div class="video-time">
+        14:27
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_185435_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      THARA BHAiiiii | CARRYMΙΝΑΤΙ
+  </p>        
+   <p class="Youtuber-name">
+    CarryMinati
+  </p>
+  <p class="Duration">
+    7.3 Crore views    &#183; 3 years ago
+  </p>
+      </div>
+      </div> 
+  </div>  
+    <!-- 12 -->
+<div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_185711_YouTube.jpg">
+     <div class="video-time">
+        13:03
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_185737_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      मकरंद अनासपुरे ची कोर्टात तुफान कॉमेडी | कायद्याचं बोला | Ka...
+  </p>        
+   <p class="Youtuber-name">
+    Everest Marathi Hits
+  </p>
+  <p class="Duration">
+    47 lakh views    &#183; 2 years ago
+  </p>
+      </div>
+      </div> 
+  </div>  
+    <!-- 13 -->
+<div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_194642_YouTube.jpg">
+     <div class="video-time">
+        1:05:18
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_194729_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      Grandmaster Praggnanandhaa: Childhood,...
+  </p>        
+   <p class="Youtuber-name">
+    Raj Shamani
+  </p>
+  <p class="Duration">
+    4.8 lakh views    &#183; 22 hours ago
+  </p>
+      </div>
+      </div> 
+  </div>  
+    <!-- 14 -->
+<div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_195012_YouTube.jpg">
+     <div class="video-time">
+        2:26
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_195036_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      The Conjuring: Last Rites | Official Trailer
+  </p>        
+   <p class="Youtuber-name">
+    Warner Bros
+  </p>
+  <p class="Duration">
+    1.5 Crore views    &#183; 9 days ago
+  </p>
+      </div>
+      </div> 
+  </div>  
+    <!-- 15 -->
+<div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_195125_YouTube.jpg">
+     <div class="video-time">
+        4:28
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="Image78.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      Alaska in 8K 60p HDR (Dolby Vision)
+  </p>        
+   <p class="Youtuber-name">
+    Jacob+Katie Schwarz
+  </p>
+  <p class="Duration">
+    1.3 Crore views    &#183; 3 years ago
+  </p>
+      </div>
+      </div> 
+  </div>  
+    <!-- 16 -->
+<div class="main">
+    <div class="division-img1">
+    <img class="img1" src="SmartSelect_20250810_195310_YouTube.jpg">
+     <div class="video-time">
+        26:55
+      </div>       
+    </div>
+      <div class="video-info-grid">  
+      <div class="division-img2">
+        <img class="img2" src="SmartSelect_20250810_195343_YouTube.png">
+      </div>
+      <div class="division-title">
+      <p class="title">
+      My Solo Trip to Iceland
+  </p>        
+   <p class="Youtuber-name">
+    Kyle Kotajarvi
+  </p>
+  <p class="Duration">
+    89K views    &#183; 1 month ago
+  </p>
+      </div>
+      </div> 
+  </div>      
+  </div>
+</body>
+</html>
