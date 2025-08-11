@@ -90,7 +90,7 @@
   }
   .grid{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;   
+  grid-template-columns: 1fr 1fr ;   
    column-gap:10px; 
    row-gap:7px;
   }
@@ -374,7 +374,7 @@
     </div>
       <div class="video-info-grid">  
       <div class="division-img2">
-        <img class="img2" src="SmartSelect_20250803_192621_YouTube.jpg">
+        <img class="img2" src="SmartSelect_20250810_163751_YouTubd.jpg">
       </div>
       <div class="division-title">
       <p class="title">
@@ -774,7 +774,7 @@
     </div>
       <div class="video-info-grid">  
       <div class="division-img2">
-        <img class="img2" src="SmartSelect_20250803_192621_YouTubd.jpg">
+        <img class="img2" src="SmartSelect_20250803_192621_YouTube.jpg">
       </div>
       <div class="division-title">
       <p class="title">
